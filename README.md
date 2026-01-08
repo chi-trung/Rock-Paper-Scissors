@@ -34,9 +34,9 @@ src/
 - [ ] Bảng xếp hạng
 
 ## 👥 Phân công công việc (3 thành viên)
-- **Thành viên 1**: Server logic & Match-making
-- **Thành viên 2**: Client GUI & Connection
-- **Thành viên 3**: Game logic & Database
+- **Nhánh feature/server**: Xử lý Server (socket, threading), match-making, quản lý phòng/điểm, gửi kết quả và broadcast.
+- **Nhánh feature/client**: Client GUI Tkinter, kết nối socket, hiển thị đối thủ/kết quả/điểm, chat đơn giản, xử lý gửi MOVE/MSG.
+- **Nhánh feature/common**: Logic game (win/lose/draw), format message JSON, cấu trúc dữ liệu chung, chuẩn giao thức (type, payload), viết helper validate move.
 
 ## 🚀 Hướng dẫn chạy
 
