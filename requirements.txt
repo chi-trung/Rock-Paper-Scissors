@@ -1,0 +1,4 @@
+# Không có dependency ngoài (tkinter đi kèm với Python)
+# Nếu cần thêm sau này (ví dụ: PyQt, database):
+# PyQt5==5.15.0
+# sqlite3 (built-in)
