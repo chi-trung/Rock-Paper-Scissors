@@ -1,66 +1,59 @@
 """
-Logic và rules của game
+Logic và luật chơi Oẳn Tù Tì (Rock – Paper – Scissors)
 """
 from enum import Enum
+from typing import Optional
 
 
 class Move(Enum):
-    """Định nghĩa các nước đi"""
     ROCK = "ROCK"
     PAPER = "PAPER"
     SCISSORS = "SCISSORS"
 
 
 class GameRules:
-    """Lớp chứa logic game"""
-    
+    """Xử lý luật chơi"""
+
+    # Bảng quy định nước nào thắng nước nào
+    WIN_MAP = {
+        Move.ROCK: Move.SCISSORS,
+        Move.PAPER: Move.ROCK,
+        Move.SCISSORS: Move.PAPER,
+    }
+
     @staticmethod
-    def calculate_result(move1, move2):
+    def calculate_result(player1: Move, player2: Move) -> int:
         """
-        Tính kết quả trận đấu
-        
-        Args:
-            move1: Nước đi của người chơi 1
-            move2: Nước đi của người chơi 2
-        
+        Xác định kết quả trận đấu
+
         Returns:
-            1: Player 1 thắng
-            -1: Player 2 thắng
-            0: Hòa
+            1  : Player 1 thắng
+            -1 : Player 2 thắng
+            0  : Hòa
         """
-        if move1 == move2:
-            return 0  # Hòa
-        
-        # Điều kiện thắng cho player 1
-        if (move1 == Move.ROCK and move2 == Move.SCISSORS) or \
-           (move1 == Move.PAPER and move2 == Move.ROCK) or \
-           (move1 == Move.SCISSORS and move2 == Move.PAPER):
-            return 1  # Player 1 thắng
-        
-        return -1  # Player 2 thắng
-    
+        if player1 == player2:
+            return 0
+
+        if GameRules.WIN_MAP[player1] == player2:
+            return 1
+
+        return -1
+
     @staticmethod
-    def parse_move(move_str):
-        """Chuyển đổi string thành Move"""
-        try:
-            return Move[move_str.upper()]
-        except KeyError:
+    def parse_move(move_str: str) -> Optional[Move]:
+        """Chuyển chuỗi nhập vào thành Move"""
+        if not move_str:
             return None
-    
+
+        move_str = move_str.strip().upper()
+        return Move.__members__.get(move_str)
+
     @staticmethod
-    def get_result_text(result):
-        """
-        Chuyển đổi kết quả thành text
-        
-        Args:
-            result: 1, -1, hoặc 0
-        
-        Returns:
-            Text mô tả kết quả
-        """
-        if result == 1:
-            return "Bạn thắng!"
-        elif result == -1:
-            return "Bạn thua!"
-        else:
-            return "Hòa rồi!"
+    def get_result_text(result: int) -> str:
+        """Trả về thông báo kết quả"""
+        messages = {
+            1: "Bạn thắng!",
+            -1: "Bạn thua!",
+            0: "Hòa rồi!"
+        }
+        return messages.get(result, "Kết quả không hợp lệ")
